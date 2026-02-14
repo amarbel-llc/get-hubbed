@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -12,6 +13,17 @@ import (
 )
 
 func main() {
+	for _, arg := range os.Args[1:] {
+		if arg == "-h" || arg == "--help" {
+			fmt.Println("get-hubbed - a GitHub MCP server wrapping the gh CLI")
+			fmt.Println()
+			fmt.Println("Usage: get-hubbed")
+			fmt.Println()
+			fmt.Println("Runs an MCP server over stdio that exposes GitHub operations as tools.")
+			os.Exit(0)
+		}
+	}
+
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 
