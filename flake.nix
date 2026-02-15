@@ -38,8 +38,7 @@
           subPackages = [ "cmd/get-hubbed" ];
 
           postInstall = ''
-            mkdir -p $out/share/purse-first/get-hubbed
-            cp ${./plugin.json} $out/share/purse-first/get-hubbed/plugin.json
+            $out/bin/get-hubbed generate-plugin $out/share/purse-first
           '';
 
           meta = with pkgs.lib; {
