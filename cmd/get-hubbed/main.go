@@ -7,10 +7,10 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/amarbel-llc/go-lib-mcp/purse"
 	"github.com/amarbel-llc/go-lib-mcp/server"
 	"github.com/amarbel-llc/go-lib-mcp/transport"
 	"github.com/friedenberg/get-hubbed/internal/tools"
+	"github.com/amarbel-llc/purse-first/purse"
 )
 
 func main() {
