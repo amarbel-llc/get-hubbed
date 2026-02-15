@@ -37,6 +37,11 @@
           modules = ./gomod2nix.toml;
           subPackages = [ "cmd/get-hubbed" ];
 
+          postInstall = ''
+            mkdir -p $out/share/purse-first/get-hubbed
+            cp ${./plugin.json} $out/share/purse-first/get-hubbed/plugin.json
+          '';
+
           meta = with pkgs.lib; {
             description = "`gh` cli wrapper with MCP support packaged by nix";
             homepage = "https://github.com/friedenberg/get-hubbed";

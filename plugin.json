@@ -1,0 +1,6 @@
+{
+  "name": "get-hubbed",
+  "type": "stdio",
+  "command": "get-hubbed",
+  "args": []
+}
