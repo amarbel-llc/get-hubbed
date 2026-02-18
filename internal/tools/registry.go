@@ -10,6 +10,7 @@ func RegisterAll() *server.ToolRegistry {
 	registerPRTools(r)
 	registerAPITools(r)
 	registerRunTools(r)
+	registerContentTools(r)
 
 	return r
 }
