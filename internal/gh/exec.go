@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"os/exec"
+	"unicode/utf8"
 )
 
 func Run(ctx context.Context, args ...string) (string, error) {
@@ -15,8 +16,24 @@ func Run(ctx context.Context, args ...string) (string, error) {
 	cmd.Stderr = &stderr
 
 	if err := cmd.Run(); err != nil {
-		return "", fmt.Errorf("gh %v: %w: %s", args, err, stderr.String())
+		return "", fmt.Errorf("gh %v: %w: %s", args, err, truncateStderr(stderr.String()))
 	}
 
 	return stdout.String(), nil
+}
+
+const maxStderrBytes = 100_000
+
+func truncateStderr(s string) string {
+	if len(s) <= maxStderrBytes {
+		return s
+	}
+
+	s = s[:maxStderrBytes]
+
+	for !utf8.ValidString(s) && len(s) > 0 {
+		s = s[:len(s)-1]
+	}
+
+	return s
 }
