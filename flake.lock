@@ -3522,10 +3522,12 @@
         "utils": "utils_62"
       },
       "locked": {
-        "lastModified": 1771590659,
-        "narHash": "sha256-WdVfRXUcFDYd3g25aocEgtuNRDQhxOL06aVdiYnRLf0=",
-        "path": "/Users/sfriedenberg/eng/repos/purse-first",
-        "type": "path"
+        "lastModified": 1771598971,
+        "narHash": "sha256-y3WjyxCz0W5fUxmxPevjbXSSmYfPoMOse4CO8aRH5bc=",
+        "owner": "amarbel-llc",
+        "repo": "purse-first",
+        "rev": "ca0094184474054933d307a95243ec5fdf969de2",
+        "type": "github"
       },
       "original": {
         "owner": "amarbel-llc",
