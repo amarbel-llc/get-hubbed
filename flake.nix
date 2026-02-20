@@ -39,6 +39,7 @@
         get-hubbed-src = pkgs.runCommand "get-hubbed-src" { } ''
           cp -r ${./.} $out
           chmod -R u+w $out
+          rm -f $out/go.work $out/go.work.sum
           mkdir -p $out/deps
           cp -r ${purse-first.lib.goSrc} $out/deps/purse-first
         '';
