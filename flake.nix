@@ -7,6 +7,11 @@
     utils.url = "https://flakehub.com/f/numtide/flake-utils/0.1.102";
     go.url = "github:friedenberg/eng?dir=devenvs/go";
     shell.url = "github:friedenberg/eng?dir=devenvs/shell";
+    purse-first = {
+      url = "github:amarbel-llc/purse-first";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-master.follows = "nixpkgs-master";
+    };
   };
 
   outputs =
@@ -17,6 +22,7 @@
       go,
       shell,
       nixpkgs-master,
+      purse-first,
     }:
     utils.lib.eachDefaultSystem (
       system:
@@ -30,10 +36,18 @@
 
         version = "0.1.0";
 
+        get-hubbed-src = pkgs.runCommand "get-hubbed-src" { } ''
+          cp -r ${./.} $out
+          chmod -R u+w $out
+          mkdir -p $out/deps
+          cp -r ${purse-first.lib.goSrc} $out/deps/purse-first
+        '';
+
         get_hubbed = pkgs.buildGoApplication {
           pname = "get-hubbed";
           inherit version;
-          src = ./.;
+          pwd = get-hubbed-src;
+          src = get-hubbed-src;
           modules = ./gomod2nix.toml;
           subPackages = [ "cmd/get-hubbed" ];
 

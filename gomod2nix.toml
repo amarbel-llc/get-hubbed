@@ -4,7 +4,3 @@ schema = 3
   [mod.'github.com/amarbel-llc/go-lib-mcp']
     version = 'v0.0.0-20260215160001-e634f96c4717'
     hash = 'sha256-DiqonnNwZdI7TaYKUlgmS3DsjOxWpVtiMmXVmwD5nwQ='
-
-  [mod.'github.com/amarbel-llc/purse-first']
-    version = 'v0.0.0-20260216133354-540c1e5ba995'
-    hash = 'sha256-AVa1lbxoiLqx167LztHRF/KFhYOTrrC2XWMw67dhuQU='
