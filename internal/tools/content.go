@@ -335,6 +335,16 @@ func handleContentRead(ctx context.Context, args json.RawMessage) (*protocol.Too
 		return protocol.ErrorResult(fmt.Sprintf("gh api contents: %v", err)), nil
 	}
 
+	// GitHub API returns an array for directories, detect this before unmarshaling
+	trimmed := strings.TrimSpace(out)
+	if len(trimmed) > 0 && trimmed[0] == '[' {
+		return &protocol.ToolCallResult{
+			Content: []protocol.ContentBlock{
+				protocol.TextContent(fmt.Sprintf("Path '%s' is a directory. Use content_tree to list its contents.", params.Path)),
+			},
+		}, nil
+	}
+
 	var contentResp struct {
 		Content  string `json:"content"`
 		Encoding string `json:"encoding"`
