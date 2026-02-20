@@ -241,6 +241,7 @@ func handleContentTree(ctx context.Context, args json.RawMessage) (*protocol.Too
 	ghArgs := []string{
 		"api",
 		fmt.Sprintf("repos/%s/git/trees/%s", params.Repo, treeSha),
+		"--method", "GET",
 	}
 
 	if params.Recursive {
@@ -324,6 +325,7 @@ func handleContentRead(ctx context.Context, args json.RawMessage) (*protocol.Too
 	ghArgs := []string{
 		"api",
 		fmt.Sprintf("repos/%s/contents/%s", params.Repo, params.Path),
+		"--method", "GET",
 	}
 
 	if params.Ref != "" {
@@ -549,7 +551,7 @@ func handleContentCommits(ctx context.Context, args json.RawMessage) (*protocol.
 
 	endpoint := fmt.Sprintf("repos/%s/commits", params.Repo)
 
-	ghArgs := []string{"api", endpoint, "-f", fmt.Sprintf("path=%s", params.Path)}
+	ghArgs := []string{"api", endpoint, "--method", "GET", "-f", fmt.Sprintf("path=%s", params.Path)}
 
 	if params.Ref != "" {
 		ghArgs = append(ghArgs, "-f", fmt.Sprintf("sha=%s", params.Ref))
@@ -594,7 +596,7 @@ func handleContentCompare(ctx context.Context, args json.RawMessage) (*protocol.
 
 	endpoint := fmt.Sprintf("repos/%s/compare/%s...%s", params.Repo, params.Base, params.Head)
 
-	ghArgs := []string{"api", endpoint}
+	ghArgs := []string{"api", endpoint, "--method", "GET"}
 
 	if params.PerPage > 0 {
 		ghArgs = append(ghArgs, "-f", fmt.Sprintf("per_page=%d", params.PerPage))
@@ -646,6 +648,7 @@ func handleContentSearch(ctx context.Context, args json.RawMessage) (*protocol.T
 
 	ghArgs := []string{
 		"api", "search/code",
+		"--method", "GET",
 		"-H", "Accept: application/vnd.github.text-match+json",
 		"-f", fmt.Sprintf("q=%s", q),
 	}
